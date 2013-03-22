@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+	<head>
+		<title>Web Worker example</title>
+	</head>
+	<body>
+		<h1>Web Worker example</h1>
+		<input id="startVal" type="text" />
+		<button id="btn" type="button">Start</button>
+		<p>Räknar... <span id="result"></span></p>
+		<script type="text/javascript">
+			var startVal = document.getElementById('startVal'),
+				btn = document.getElementById('btn');
+
+		 	btn.addEventListener('click', function(event){
+				
+				worker = new Worker('ww.js');
+				worker.postMessage(startVal.value);
+				worker.onmessage = function (event) {
+			  		document.getElementById('result').textContent = Math.floor(event.data * 10) / 10;
+			 	};
+			}, false);
+		</script>
+	</body>
+</html>
